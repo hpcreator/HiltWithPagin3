@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TMDB</string>
+    <string name="retry">retry</string>
+    <string name="try_again">please try again!</string>
+</resources>
