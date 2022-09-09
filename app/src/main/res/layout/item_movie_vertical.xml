@@ -21,6 +21,21 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/demo" />
 
+        <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+            android:id="@+id/progressRate"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            app:direction="clockwise"
+            app:fillBackground="true"
+            app:layout_constraintBottom_toBottomOf="@id/imgMovie"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgMovie"
+            app:progressBackgroundColor="?attr/colorPrimary"
+            app:progressStrokeWidth="5dp"
+            app:textColor="@color/white"
+            app:textSize="14sp" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvMovieName"
             android:layout_width="0dp"
@@ -31,7 +46,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgMovie"
+            app:layout_constraintTop_toBottomOf="@id/progressRate"
             tools:text="Movie Name" />
 
         <com.google.android.material.textview.MaterialTextView

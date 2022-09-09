@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
@@ -10,12 +10,24 @@
         <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
         <item name="actionBarTheme">@style/toolbarStyle</item>
     </style>
 
-    <style name="toolbarStyle" parent="ThemeOverlay.MaterialComponents.ActionBar">
+    <style name="toolbarStyle" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="background">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/toolbarTextColor</item>
+    </style>
+
+    <style name="Theme.AppSplashScreen" parent="Theme.SplashScreen">
+
+        <item name="windowSplashScreenBackground">@color/colorPrimary</item>
+        <item name="postSplashScreenTheme">@style/Theme.AppTheme</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/black</item>
+        <item name="android:windowSplashScreenBrandingImage" tools:targetApi="s">
+            @drawable/ic_tmdb_brand_name
+        </item>
+
     </style>
 </resources>

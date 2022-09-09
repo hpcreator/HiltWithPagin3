@@ -3,11 +3,13 @@ package com.app.tmdb
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.tmdb.adapter.LoadingStateAdapter
 import com.app.tmdb.adapter.MovieAdapter
 import com.app.tmdb.databinding.ActivityMainBinding
+import com.app.tmdb.extensions.addDelay
 import com.app.tmdb.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -23,6 +25,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var keepSplashOnScreen = true
+        installSplashScreen().setKeepOnScreenCondition { keepSplashOnScreen }
+        addDelay({ keepSplashOnScreen = false }, 2000)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -43,8 +48,8 @@ class MainActivity : AppCompatActivity() {
                 manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
                         return when (movieAdapter.getItemViewType(position)) {
-                            movieAdapter.WALLPAPER_VIEW_TYPE -> 1
-                            movieAdapter.NETWORK_VIEW_TYPE -> 2
+                            movieAdapter.movieViewType -> 1
+                            movieAdapter.networkViewType -> 2
                             else -> -1
                         }
                     }

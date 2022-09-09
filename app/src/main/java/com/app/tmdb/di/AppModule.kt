@@ -16,9 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    //private val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-
-    const val apiKey = "328c283cd27bd1877d9080ccb1604c91"
+    const val apiKey = "1e526787618d99216b62a676de2db219"
 
     private var interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()

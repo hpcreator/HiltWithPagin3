@@ -1,28 +1,46 @@
 package com.app.tmdb.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.app.tmdb.R
 import com.app.tmdb.data.ApiResponse
-import com.app.tmdb.databinding.ItemMovieBinding
+import com.app.tmdb.databinding.ItemMovieVerticalBinding
 import javax.inject.Inject
 
 class MovieAdapter @Inject constructor() :
     PagingDataAdapter<ApiResponse.Movies, MovieAdapter.MovieViewHolder>(Diff) {
 
-    val NETWORK_VIEW_TYPE = 1
-    val WALLPAPER_VIEW_TYPE = 2
+    val networkViewType = 1
+    val movieViewType = 2
+    lateinit var context: Context
 
-    class MovieViewHolder(private val binding: ItemMovieBinding) :
+    class MovieViewHolder(private val binding: ItemMovieVerticalBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movies: ApiResponse.Movies) {
+        fun bind(movies: ApiResponse.Movies, context: Context) {
             binding.apply {
                 imgMovie.load("https://image.tmdb.org/t/p/w500/${movies.posterPath}")
                 tvMovieName.text = movies.title
                 tvDate.text = movies.releaseDate
+                progressRate.setProgress(movies.voteAverage!!, 10.0)
+                when (movies.voteAverage) {
+                    in 0.0..5.0 -> {
+                        progressRate.progressColor = context.getColor(R.color.rate_50)
+                        progressRate.dotColor = context.getColor(R.color.rate_50)
+                    }
+                    in 5.0..7.0 -> {
+                        progressRate.progressColor = context.getColor(R.color.rate_70)
+                        progressRate.dotColor = context.getColor(R.color.rate_70)
+                    }
+                    in 7.0..10.0 -> {
+                        progressRate.progressColor = context.getColor(R.color.rate_100)
+                        progressRate.dotColor = context.getColor(R.color.rate_100)
+                    }
+                }
             }
         }
     }
@@ -30,13 +48,14 @@ class MovieAdapter @Inject constructor() :
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movies = getItem(position)
         if (movies != null) {
-            holder.bind(movies)
+            holder.bind(movies, context)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        context = parent.context
         return MovieViewHolder(
-            ItemMovieBinding.inflate(
+            ItemMovieVerticalBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -47,10 +66,10 @@ class MovieAdapter @Inject constructor() :
     override fun getItemViewType(position: Int): Int {
         return when (position) {
             itemCount -> {
-                NETWORK_VIEW_TYPE
+                networkViewType
             }
             else -> {
-                WALLPAPER_VIEW_TYPE
+                movieViewType
             }
         }
     }
@@ -58,13 +77,13 @@ class MovieAdapter @Inject constructor() :
     object Diff : DiffUtil.ItemCallback<ApiResponse.Movies>() {
         override fun areItemsTheSame(
             oldItem: ApiResponse.Movies,
-            newItem: ApiResponse.Movies
+            newItem: ApiResponse.Movies,
         ): Boolean =
             oldItem.id == newItem.id
 
         override fun areContentsTheSame(
             oldItem: ApiResponse.Movies,
-            newItem: ApiResponse.Movies
+            newItem: ApiResponse.Movies,
         ): Boolean =
             oldItem == newItem
     }

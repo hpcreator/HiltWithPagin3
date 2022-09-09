@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#64b5f6</color>
-    <color name="colorPrimaryVariant">#2286c3</color>
-    <color name="colorOnPrimary">@color/black</color>
-    <color name="colorSecondary">#ff8a65</color>
-    <color name="colorSecondaryVariant">#c75b39</color>
+    <color name="colorPrimary">#0d253f</color>
+    <color name="colorPrimaryVariant">#0d253f</color>
+    <color name="colorOnPrimary">@color/white</color>
+    <color name="colorSecondary">#01b4e4</color>
+    <color name="colorSecondaryVariant">#0084b2</color>
     <color name="colorOnSecondary">@color/black</color>
 
-    <color name="toolbarTextColor">@color/black</color>
+    <color name="toolbarTextColor">@color/white</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#A7A7A7</color>
+
+
+    <color name="rate_50">#ab000d</color>
+    <color name="rate_100">#00701a</color>
+    <color name="rate_70">#c6a700</color>
+
 </resources>
